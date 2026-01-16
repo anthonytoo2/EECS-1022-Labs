@@ -9,13 +9,13 @@ public class Lab1 {
 	 */
 	public static int collatz(int n) {
 		
-		int ans = 0;
+		int ans = -1;
 		if (n >0) {
 			if (n%2 == 0) {
 				ans = n/2;
 			}
 			else if (n%2 == 1) {
-				ans = n*3+1;
+				ans = (n*3) + 1;
 			}
 		}
 		else {
