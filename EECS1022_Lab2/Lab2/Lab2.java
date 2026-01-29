@@ -22,7 +22,7 @@ public class Lab2 {
 	 {
 		double calTot = 0.0;
 		
-		if ((gender == 1 || gender == 2) && age >0 && weight >0 && height >0 && (athlete == true || athlete == false)) {
+		if (!(gender > 2) && age >0 && weight >0 && height >0) {
 			if (gender == 1) {
 				calTot = (10*weight) + (6.25*height)- (5*age) + 5;
 			}
@@ -31,7 +31,7 @@ public class Lab2 {
 			}
 			
 			if (athlete == true) {
-				if (gender == 1) {
+				if (gender == 1 ) {
 					calTot = calTot * 1.20;
 				}
 				else {
@@ -61,19 +61,19 @@ public class Lab2 {
 			return -1.0;
 		}
 		else {
-			if (income >= 0 && income < 7150) {
+			if (income > 0 && !(income > 7150)) {
 				fltAmt = 0;
 				excessMoney = income - 0;
 				extraOwed = 0.1 * excessMoney;
 				amtOwed = fltAmt + extraOwed;
 			}
-			else if (income >= 7150 && income < 29050) {
+			else if (income > 7150 && !(income > 29050)) {
 				fltAmt = 715;
 				excessMoney = income - 7150;
 				extraOwed = 0.15 * excessMoney;
 				amtOwed = fltAmt + extraOwed;				
 			}
-			else if (income >= 29050 && income < 70350) {
+			else if (income > 29050 && !(income > 70350)) {
 				fltAmt = 4000;
 				excessMoney = income - 29050;
 				extraOwed = 0.25 * excessMoney;
@@ -105,13 +105,16 @@ public class Lab2 {
 		if (year >= 1000) {
 			yearValid = true;
 			
-			if ((year % 400 == 0) || (year %4 == 0 && year%100 != 0)) {
-				isLeapYear = true;
-			}
 		}
 		
-		if (month >= 1 && month <= 12) {
+		if (month >= 1 && !(month > 13)) {
 			monthValid = true;
+			
+			if (month == 2) {
+				if ((year % 400 == 0) || (year %4 == 0 && year%100 != 0)) {
+					isLeapYear = true;
+				}
+			}
 		}
 		
 		if (month == 4 || month == 6 || month == 9 || month == 11) {
@@ -125,7 +128,7 @@ public class Lab2 {
 				daysInMonth = 28;
 			}
 		}
-		else if (month == 1 || month == 2 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+		else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
 			daysInMonth = 31;
 		}
 		
