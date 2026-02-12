@@ -9,12 +9,12 @@ public class Lab3Console {
 //		System.out.println(Lab3.printStars(10));		
 //		System.out.println("***\n-**\n--*");
 		//test highlight()
-//		System.out.println(Lab3.expand(6,1));	
+//		System.out.println(Lab3.expand(12,2));	
 //		
 //		//test getSeqStat()
-//		System.out.println(Lab5.getSeqStat(1,2,3));	
+//		System.out.println(Lab3.getSeqStat(1,2,3));	
 //		
 //		//test seqInterleaving()
-//		System.out.println(Lab5.seqInterleaving(1,2,3,1,2,3));	
+//		System.out.println(Lab3.seqInterleaving(1,2,3,1,2,3));	
 	}	
 }

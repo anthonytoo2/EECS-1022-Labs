@@ -18,29 +18,27 @@ public class Lab2 {
 	 * double height, and a boolean athlete 
 	 * and calculates the needed daily calories for that person as a double.
 	 */
-	public static double getCalories(int gender, int age, double weight, double height, boolean athlete) 
-	 {
-		double calTot = 0.0;
+	public static double getCalories(int gender, int age, double weight, double height, boolean athlete){
 		
-		if (!(gender > 2) && age >0 && weight >0 && height >0) {
-			if (gender == 1) {
-				calTot = (10*weight) + (6.25*height)- (5*age) + 5;
-			}
-			else {
-				calTot = (10*weight) + (6.25*height)- (5*age) -161;
-			}
+		double calTot = -1;
+		
+		if (gender <0  || gender >2|| age <0 || weight <0 || height <0) {
+			return calTot;
+		}
+		
+		if (gender ==1) {
+			calTot = 10* weight + 6.25*height -5*age+5;
 			
 			if (athlete == true) {
-				if (gender == 1 ) {
-					calTot = calTot * 1.20;
-				}
-				else {
-					calTot = calTot * 1.15;
-				}
+				calTot *=1.2;
 			}
 		}
 		else {
-			return -1.0;
+			calTot = 10*weight + 6.25*height - 5*age -161;
+			
+			if (athlete == true) {
+				calTot *= 1.15;
+			}
 		}
 		
 		return calTot;
@@ -98,49 +96,48 @@ public class Lab2 {
 	 * it checks if the year is a leap year
 	 */
 	public static boolean validDate(int day, int month, int year) {
+		boolean monthValid = false, yearValid = false, isLeapYear = false, dayValid = false;;
 		
-		boolean yearValid = false, isLeapYear = false, monthValid = true, dayValid = false;
-		int daysInMonth = 0;
-		
-		if (year >= 1000) {
-			yearValid = true;
-			
+		if (month >0 && month <13) {
+			monthValid = true;
 		}
 		
-		if (month >= 1 && !(month > 13)) {
-			monthValid = true;
-			
-			if (month == 2) {
-				if ((year % 400 == 0) || (year %4 == 0 && year%100 != 0)) {
-					isLeapYear = true;
+		if (year>= 1000) {
+			yearValid = true;
+			if (year%400 == 0 || (year%4 == 0 && year%100 == 1)){
+				isLeapYear = true;
+			}
+		}
+		
+		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month ==12) {
+			if (day >0 && day < 32) {
+				dayValid = true;
+			}
+		}
+		else if (month ==4 || month == 6 || month == 9 || month == 11) {
+			if (day >0 && day <31) {
+				dayValid = true;
+			}
+		}
+		else {
+			if (isLeapYear == true) {
+				if (day >0 && day <30) {
+					dayValid = true;
+				}
+			}
+			else {
+				if (day>0 && day<29) {
+					dayValid = true;
 				}
 			}
 		}
 		
-		if (month == 4 || month == 6 || month == 9 || month == 11) {
-			daysInMonth = 30;
-		}
-		else if (month == 2) {
-			if (isLeapYear == true) {
-				daysInMonth = 29;
-			}
-			else {
-				daysInMonth = 28;
-			}
-		}
-		else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
-			daysInMonth = 31;
-		}
-		
-		if (day > 0 && day <= daysInMonth) {
-			dayValid = true;
-		}
-		
-		if (yearValid == true && monthValid == true && dayValid == true) {
-			return true;
-		}
-		else {
+		if (monthValid == false || yearValid == false || dayValid == false) {
 			return false;
 		}
+		else {
+			return true;
+		}
+		
 	}
 }

@@ -12,72 +12,58 @@ public class Lab3 {
 
 	public static String printStars(int n) {
 		
-		//first two conditions that are checked are to see if there is a body, where n>2
-		if (n == 1) {
-			return "*";
-		}
-		else if (n == 2) {
-			return "**\n-*";
-		}
-		else {
-			String output = "";
-			String line1 = "";
-			for (int lines = n; lines >0; lines --) {
-				line1 += "*";
+		String ans = "";
+		
+		for (int i =0; i<n; i ++) {
+			for (int j =0; j<i; j ++) {
+				ans += "-";
+				
+			}
+			for (int k =n; k>i; k --) {
+				ans += "*";
 			}
 			
-			String lastLine = "";
-			for (int last = (n-1); last > 0; last --) {
-				lastLine += "-";
+			if (i < n-1) {
+				ans += "\n";
 			}
-			lastLine += "*";
-			
-
-			for (int body = 1; body <= (n-2); body ++) {
-				String lines = "";
-				for (int spaces = 1; spaces <= body; spaces ++) {
-					lines += "-";
-				}
-				for(int stars = 1; stars <= (n-body); stars ++) {
-					lines += "*";
-				}
-				output += lines + "\n";
-			}
-			
-			output = line1  + "\n" + output + lastLine;
-			return output;
 		}
+		return ans;
 	}
 	
 	public static String expand (int num, int d) {
-			
+
 		if (d <0 || num  < 0) {
 			return "Invalid";
 		}
-		else {
-			int userNum = num;
-			int exp = d;
-			int digit = 0;
-			int tenExp;
-			int oneVal = (int)(num%10);
-			String output = "";
-			
-			while (userNum >9) {
-				digit = (int)(userNum/Math.pow(10, exp-1));
-				tenExp = (int)(Math.pow(10,exp-1));
-				
-				output += digit + "*" + tenExp + " + ";
-				
-				
-				userNum = userNum - (int)(digit * Math.pow(10, exp-1));
-				exp --;
+		
+		int userNum = num;
+		int exp = d-1;
+		int digit = 0;
+		int tenExp = 10;
+		int oneVal = (int)(num%10);
+		String output = "";
+		
+		while (userNum >=9) {
+		
+			for (int cnt = 1; cnt < exp; cnt++ ) {
+				tenExp *= 10;
 			}
 			
-			output += oneVal;
-				
+			digit = (int)(userNum/tenExp);
 			
-			return output;
+			output += digit + "*" + tenExp + " + ";
+			
+			
+			userNum -= (digit * tenExp);
+			tenExp = 10;
+			exp --;
 		}
+		
+		output += oneVal;
+			
+		
+		return output;
+		
 	}
 	
 	public static String getSeqStat(int ft, int d, int n) {
@@ -131,10 +117,9 @@ public class Lab3 {
 		
 		output += lastLine;
 		return output;
-	}
+	}	
 	
 	public static String seqInterleaving(int ft1, int d1, int n1, int ft2, int d2, int n2) {
-		
 		int totInput =n1 + n2;
 		int cntOdd = 0;
 		int cntEvn = 0;

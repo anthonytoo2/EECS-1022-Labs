@@ -8,20 +8,19 @@ public class Lab1 {
 	 * sequence
 	 */
 	public static int collatz(int n) {
+		int nextNum = -1;
 		
-		int ans = -1;
-		if (n >0) {
-			if (n%2 == 0) {
-				ans = n/2;
-			}
-			else if (n%2 == 1) {
-				ans = (n*3) + 1;
-			}
+		if ( n<0) {
+			return nextNum;
+		}
+		
+		if (n%2 == 0) {
+			nextNum = n/2;
 		}
 		else {
-			ans = -1;
+			nextNum = n*3 +1;
 		}
-		return ans;
+		return nextNum;
 	}
 	
 	/**
@@ -29,18 +28,21 @@ public class Lab1 {
 	 * or "ScoresTooLow"
 	 */
 	public static String yorkAdmit (double gpa, int sat) {
+		String ans = "";
 		
-			String answer;
-			if (gpa < 1.8 ^ sat < 900) {
-				answer = "Reject";
-			}
-			else if (gpa < 1.8 && sat < 900) {
-				answer =  "ScoresTooLow";
-			}
-			else {
-				answer =  "Accept";
-			}
-			return answer;
+		if (gpa < 1.8 && sat >= 900) {
+			ans = "Reject";
+		}
+		else if (gpa >= 1.8 && sat < 900) {
+			ans = "Reject";
+		}
+		else if (gpa < 1.8 && sat < 900) {
+			ans = "ScoresTooLow";
+		}
+		else {
+			ans = "Accept";
+		}
+		return ans;
 	}
 		
 	/**
@@ -48,20 +50,20 @@ public class Lab1 {
 	 */
 	public static int quadrant (double x, double y) {
 		
-		if (x == 0 || y == 0) {
-			return 0;
-		}
-		else if (x > 0 && y >0) {
+		if (x >0 && y>0) {
 			return 1;
 		}
-		else if (x<0 && y>0) {
+		else if (x <0 && y>0) {
 			return 2;
 		}
-		else if (x < 0 && y < 0 ) {
+		else if (x <0 && y<0) {
 			return 3;
 		}
-		else {
+		else if (x >0 && y<0) {
 			return 4;
+		}
+		else {
+			return 0;
 		}
 	}
 	
@@ -71,15 +73,11 @@ public class Lab1 {
 	 */
 	public static boolean enoughLunchTime (int hour1, int min1, int hour2, int min2) {
 		
-		int minTot1 = 60*hour1 + min1;
-		int minTot2 = 60*hour2 + min2;
-		int timeDiff = minTot2 - minTot1;
+		int t1 = hour1*60 + min1;
+		int t2 = hour2*60 + min2;
 		
-		if (timeDiff >= 45) {
+		if (t2-t1 >= 45) {
 			return true;
-		}
-		else if (timeDiff <45) {
-			return false;
 		}
 		else {
 			return false;
@@ -91,7 +89,6 @@ public class Lab1 {
 	 * calculates the minimum payment owed 
 	 */
 	public static double computePayment (double oldBalance, double charges) {
-		
 		double interest = 0.0;
 		double spent = oldBalance + charges;
 		if (oldBalance > 0) {
