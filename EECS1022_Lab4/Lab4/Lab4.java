@@ -61,7 +61,6 @@ public class Lab4 {
 		
 		int start = 0; 
 		int wrdCnt = 1;
-		boolean isLetter= false;
 		for (int i = 0; i<str1.length(); i ++) {
 			if (str2.charAt(0) == str1.charAt(i)) {
 				break;
@@ -115,8 +114,6 @@ public class Lab4 {
 	}
 	
 	public static boolean magicSquare(int[][] array) {
-	
-		boolean isValid = true;
 		
 		int xSum =0;
 		int newXSum =0;
@@ -133,8 +130,7 @@ public class Lab4 {
 			}
 			
 			if (xSum != newXSum) {
-				isValid = false;
-				break;
+				return false;
 			}
 		}
 		
@@ -148,8 +144,7 @@ public class Lab4 {
 			}
 			
 			if (xSum != newYSum) {
-				isValid = false;
-				break;
+				return false;
 			}
 		}
 		
@@ -169,10 +164,10 @@ public class Lab4 {
 		}
 		
 		if (diagSum1 != xSum || diagSum2 != xSum) {
-			isValid = false;
+			return false;
 		}
 		
-		return isValid;	
+		return true;	
 	}
 	
 }
