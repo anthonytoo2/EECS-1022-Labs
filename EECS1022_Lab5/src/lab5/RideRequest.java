@@ -15,140 +15,6 @@ package lab5;
 
 public class RideRequest {
 		
-		private String customerName = "";
-		private static double discountRate = 1;
-		private boolean hasDiscount = false;
-		private String rideDetails = "";
-		private double ridePrice = 0;
-		private static double taxrate = 0;
-		private static int toStringCounter = 1;
-		
-
-		public RideRequest() {
-			this.customerName = "";
-			this.rideDetails = "";
-			this.ridePrice = 0.0;
-			this.hasDiscount = false;
-		}
-		
-		public RideRequest(RideRequest other) {
-			if (other == null) {
-				throw new IllegalArgumentException();
-			}
-			
-			this.customerName = other.customerName;
-			this.rideDetails = other.rideDetails;
-			this.ridePrice = other.ridePrice;
-			this.hasDiscount = other.hasDiscount;
-		}
-		
-		public RideRequest(String input) {
-			
-			if (input == null || input == "") {
-				throw new IllegalArgumentException();
-			}
-			String[] info = input.split(",");
-			
-			if(info.length != 4) {
-				throw new IllegalArgumentException();
-			}
-			
-			this.customerName = info[0].trim();
-			this.rideDetails = info[1].trim();
-			this.ridePrice = Double.parseDouble(info[2].trim());
-			
-			if (info[3].trim().equals("Y")) {
-				this.hasDiscount = true;
-			}
-			else if (info[3].trim().equals("N")){
-				this.hasDiscount = false;
-			}
-			else {
-				throw new IllegalArgumentException();
-			}
-			
-		}
-		
-
-		public void setRideDetails(String rideDetails) {
-			if (rideDetails == null) {
-				this.rideDetails = "";
-			}
-			else if (rideDetails.length() < 25) {
-				String details = rideDetails.substring(0,Math.min(rideDetails.length(),25));
-				details = details.trim();
-				this.rideDetails = details;
-			}
-		}
-		
-		public void setCustomerName(String customerName) {
-			
-			if (customerName == null) {
-				this.customerName = "";
-			}
-			else if (customerName.length() >10) {
-				String name = customerName.substring(0,Math.min(customerName.length(),10));
-				this.customerName = name;
-			}
-			else {
-				this.customerName = customerName;
-			}
-		}
-		
-		public void setRidePrice(double ridePrice) {
-			this.ridePrice = ridePrice;
-		}
-		public void setHasDiscount(boolean hasDiscount) {
-			this.hasDiscount = hasDiscount;
-		}
-		public static void setTaxrate(double taxRate) {
-			taxrate = taxRate;
-		}
-		public static void setDiscount(double discount) {
-			discountRate = discount;
-		}
-		
-	
-		public double getRidePrice() {
-			return this.ridePrice;
-		}
-		public boolean isHasDiscount() {
-			if (this.hasDiscount == true) {
-				return true;
-			}
-			return false;
-		}
-		public static double getTaxrate() {
-			return taxrate;
-		}
-		public static double getDiscount() {
-			return discountRate;
-		}
-		public String getCustomerName() {
-			return this.customerName;
-		}
-		public String getRideDetails() {
-			return this.rideDetails;
-		}
-		public String toString() {
-			
-			String output = "";
-			if (this.hasDiscount == false) {
-				double taxedPrice = this.ridePrice*(1+taxrate);
-				String style = "%2d. %-10s|%-25s|%-12.2f|";
-				output = String.format(style,toStringCounter,this.customerName,this.rideDetails,taxedPrice);
-			}
-			else {
-				double taxedPrice = this.ridePrice*(1+taxrate);	
-				double taxAndDiscountPrice = this.hasDiscount ? (taxedPrice * (1-discountRate)): taxedPrice;
-				String style = "%2d. %-10s|%-25s|%-12.2f|%13.2f";
-				output = String.format(style,toStringCounter,this.customerName,this.rideDetails,taxedPrice,taxAndDiscountPrice);
-			}
-
-			toStringCounter ++;
-			return output;
-		}
-		
 	// TODO: Your implementation starts here
 	/*  Your implementation starts here
 	 * Recall that :
@@ -158,6 +24,132 @@ public class RideRequest {
 	 *    Instead, refer to the input parameters of this method.   
 	 */
 	
-
-
+	private String customerName = "";
+	private static double discount = 0.0;
+	private boolean hasDiscount = false;
+	private String rideDetails = "";
+	private double ridePrice = 0.0;
+	private static double taxrate = 0.0;
+	private static int toStringCounter = 1;
+	
+	public RideRequest() {
+		this.customerName = "";
+		this.rideDetails = "";
+		this.ridePrice = 0.0;
+		this.hasDiscount = false;
+	}
+	
+	public RideRequest(RideRequest other) {
+		
+		if (other == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		this.customerName = other.customerName;
+		this.rideDetails = other.rideDetails;
+		this.ridePrice = other.ridePrice;
+		this.hasDiscount = other.hasDiscount;
+	}
+	
+	 public RideRequest(String input) {
+	        if (input == null || input == "") {
+	            throw new IllegalArgumentException();
+	        }
+	        String[] temp = input.split(",");
+	        if (temp.length != 4) {
+	            throw new IllegalArgumentException();
+	        }
+	        this.customerName = temp[0].trim();
+	        this.rideDetails = temp[1].trim();
+	        this.ridePrice = Double.parseDouble(temp[2].trim());
+	        switch (temp[3].trim()) {
+	        case "Y": {
+	            this.hasDiscount = true;
+	            break;
+	        }
+	        case "N": {
+	            this.hasDiscount = false;
+	            break;
+	        }
+	        default:
+	            throw new IllegalArgumentException();
+	        }
+	    }
+	
+	
+	public void setRideDetails(String rideDetails) {
+		if (rideDetails == ""){
+			this.rideDetails = "";
+		}
+		else if (rideDetails == null) {
+			this.rideDetails = "";
+		}
+		else if (rideDetails.length() >25) {
+			this.rideDetails = rideDetails.substring(0,25);
+		}
+		else {
+			this.rideDetails = rideDetails.trim();
+		}
+		
+	}
+	
+	public void setCustomerName(String customerName) {
+		if (customerName == "") {
+			this.customerName = "";
+		}
+		else if (customerName == null) {
+			this.customerName = "";
+		}
+		else if (customerName.length() >10) {
+			this.customerName = customerName.substring(0,10);
+		}
+		else {
+			this.customerName = customerName;
+		}
+	}
+	
+	public void setRidePrice(double ridePrice) {
+		this.ridePrice = ridePrice;
+	}
+	public void setHasDiscount(boolean hasDiscount) {
+		this.hasDiscount = hasDiscount;
+	}
+	
+	public static void setTaxrate(double taxRate) {
+		taxrate = taxRate;
+	}
+	public static void setDiscount(double discountr) {
+		discount = discountr;
+	}
+	
+	public String getCustomerName() {
+		return this.customerName;
+	}
+	public String getRideDetails() {
+		return this.rideDetails;
+	}
+	public static double getDiscount() {
+		return discount;
+	}
+	public static double getTaxrate() {
+		return taxrate;
+	}
+	public double getRidePrice() {
+		return this.ridePrice;
+	}
+	public boolean isHasDiscount() {
+		return this.hasDiscount;
+	}
+	
+	public String toString() {
+		
+		String output=String.format("%2d. %-10s|%-25s|%-12.2f|", toStringCounter, this.customerName, this.rideDetails, 
+		this.ridePrice*(taxrate+1));
+		if (this.hasDiscount) {
+			output+=String.format("%13.2f", this.ridePrice*(1+taxrate)*(1-discount));
+		}	
+		
+		toStringCounter ++;
+		return output;
+	}
 }

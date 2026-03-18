@@ -4,57 +4,48 @@ public class Lab4 {
 		if (array.length == 0) {
 			return 0;
 		}
-		if (array.length == 1) {
-			return 1;
+		if (array.equals(null)) {
+			return 0;
 		}
 		
-		int len = array.length;
-		int seq = 1;
-		int max = 1;
-		for (int i = 1; i <len; i++) {
-			if (array[i] == array[i-1]+1) {
-				seq +=1;
-				if (seq >max) {
-					max = seq;
-				}
+		int counter = 1;
+		int maxVal = counter;
+		
+		
+		for (int i = 1; i <array.length; i ++) {
+			if (array[i] == array[i-1] + 1) {
+				counter ++;
 			}
 			else {
-				seq = 1;
+				counter = 1;
+			}
+			
+			if (counter > maxVal) {
+				maxVal = counter;
 			}
 		}
 		
-		return max;
+		return maxVal;
 	}
 
 	public static String countArray (int[] array) {
 		
-		int num = 0;
-		int cnt = 0;
+		int[] evenNums = new int[101];
 		String output = "";
-		boolean[] counted = new boolean [100];
 		
-		for (int i = 0; i< array.length; i ++) {
-			
-			if (array[i] >=2 && array[i] <100 && array[i]%2 ==0 && !counted[array[i]]) {
-				num = array[i];
-				for (int j = 0; j<array.length; j++) {
-					if (array[j] == num) {
-						cnt += 1;
-					}
-				}
-				
-				output += num + ": " + cnt;
-				cnt = 0;
-				counted[array[i]] = true;
-				
-				if (i<array.length-1) {
-					output += "\n";
-				}	
+		for (int i = 0; i< array.length-1; i ++) {
+			if (array[i]<100 && array[i]>=2 && array[i] %2 ==0) {
+				evenNums[array[i]] ++;
 			}
 		}
 		
+		for (int j = 0; j<array.length-1; j++) {
+			if (evenNums[j] != 0) {
+				output += j + ": " + evenNums[j] + "\n";
+			}
+		}
 		
-		return output.trim();
+		return output;
 	}
 	
 	public static boolean validString (String str1, String str2) {
@@ -87,7 +78,8 @@ public class Lab4 {
 			return false;
 	}
 	
-	public static String arrayResult(int[][] array) {
+	public static String arrayResult(int[][] array) {	
+		
 		int sum = 0;
 		int prod;
 		
@@ -95,21 +87,21 @@ public class Lab4 {
 			prod = 1;
 		}
 		else {
-			prod =0;
+			prod = 0;
 		}
-		for (int y = 0; y<array.length; y ++) {
-			for (int x = 0; x< array[y].length; x ++) {
-				if ((x+y)%2 == 0) {
-					sum += array[x][y];
+		
+		for(int y = 0; y<array.length; y++) {
+			for(int x =0; x<array[0].length; x ++) {
+				if ((x+y)%2 ==1) {
+					prod *= array[x][y];
 				}
 				else {
-					prod *= array[x][y];
+					sum += array[x][y];
 				}
 			}
 		}
 		
 		String output = "Sum:" + sum + ", Product:" + prod;
-		
 		return output;
 	}
 	

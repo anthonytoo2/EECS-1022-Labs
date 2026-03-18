@@ -1,0 +1,11 @@
+add a method that returns a List where each item is a word from a file
+a word is any sequence of one or more characters separated with spaces
+or punctuation characters
+	
+add a method that computes letter frequencies in the text file
+it treats lowercase and upppercase characters as one character
+the method returns a Map object of Character to Integer (characters are
+uppercase letters
+
+add a method that computes word frequencies in the text file
+the method returns a Map object of String to Integer
