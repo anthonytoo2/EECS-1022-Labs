@@ -1,6 +1,7 @@
-
+import java.util.*;
+import java.io.*;
 /**
- * @author <your name and student number>
+ * @author Anthony Tu, 222096770
  * This class implements an object that stores text contents loaded from a file.
  * It also contains methods that:
  * - return the text contents as a List of words
@@ -20,4 +21,71 @@ public class TextFile {
 
 	//add a method that computes word frequencies in the text file.
 	//The method returns a Map object of String to Integer.
-}
+	
+	private String name = "";
+	
+	public TextFile(String fileName) {
+		this.name = fileName;
+	}
+	
+	
+	public List<String> getWords() {
+		
+		
+		File file = new File(name);
+		List<String> words = new ArrayList<>();
+		
+		try (Scanner input = new Scanner(file)){
+			if (input.hasNext()) {
+				String fileWords = input.useDelimiter("\\Z").next();
+
+				String[] allWords = fileWords.split("\\W+");
+				
+				for (String w: allWords) {
+					words.add(w);
+				}
+
+			}
+	
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return words;
+	}
+	
+
+	public Map<String, Integer> getWordFrequencies(){
+		List<String> words = getWords();
+		Map<String, Integer> wordCount = new HashMap<>();
+		
+		
+		for (String w : words) {
+			wordCount.put(w, wordCount.getOrDefault(w,0) +1);
+		}
+		
+		return wordCount;
+	}
+
+
+	public Map<Character, Integer> getLetterFrequencies(){
+		Map<Character, Integer> letterCount = new HashMap<>();
+		File file = new File(name);
+		
+		try (Scanner input = new Scanner(file)){
+			if (input.hasNext()) {
+				String words = input.useDelimiter("\\Z").next();
+				
+				for(char L: words.toCharArray()) {
+					if(Character.isLetter(L)) {
+						char upL = Character.toUpperCase(L);
+						letterCount.put(upL, letterCount.getOrDefault(upL,0) +1); 
+				}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+	    }
+		return letterCount;
+	}
+}	
