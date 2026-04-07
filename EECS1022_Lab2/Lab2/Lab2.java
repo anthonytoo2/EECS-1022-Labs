@@ -19,29 +19,26 @@ public class Lab2 {
 	 * and calculates the needed daily calories for that person as a double.
 	 */
 	public static double getCalories(int gender, int age, double weight, double height, boolean athlete){
+		double calTot;
 		
-		double calTot = -1;
-		
-		if (gender <0  || gender >2|| age <0 || weight <0 || height <0) {
-			return calTot;
+		if (gender <1 || gender > 2 || weight <0 || age < 0 || height < 0) {
+			return -1;
 		}
-		
-		if (gender ==1) {
-			calTot = 10* weight + 6.25*height -5*age+5;
-			
+		else if (gender == 1) {
+			calTot = 10 * weight + 6.25 * height -5 * age + 5;
 			if (athlete == true) {
-				calTot *=1.2;
+				calTot *= 1.2;
 			}
 		}
 		else {
-			calTot = 10*weight + 6.25*height - 5*age -161;
-			
+			calTot = 10 * weight + 6.25 * height -5 * age -161;
 			if (athlete == true) {
 				calTot *= 1.15;
 			}
 		}
 		
 		return calTot;
+		
 	 }
 
 		
@@ -51,41 +48,26 @@ public class Lab2 {
 	 * if the salary is an invalid amount it returns -1.
 	 */
 	public static double computeTax(double income) {
+		double tax;
 		
-		double amtOwed, excessMoney, extraOwed;
-		int fltAmt; 
+		if (income <0) {
+			return -1;
+		}
 		
-		if (income <0.0) {
-			return -1.0;
+		if (income >=0 && income < 7150) {
+			tax = 0 + 0.1* (income-0);
+		}
+		else if (income >= 7150 && income < 29050) {
+			tax = 715 + 0.15 * (income-7150);
+		}
+		else if (income >= 29050 && income <70350) {
+			tax = 4000 + 0.25 * (income - 29050);
 		}
 		else {
-			if (income > 0 && !(income > 7150)) {
-				fltAmt = 0;
-				excessMoney = income - 0;
-				extraOwed = 0.1 * excessMoney;
-				amtOwed = fltAmt + extraOwed;
-			}
-			else if (income > 7150 && !(income > 29050)) {
-				fltAmt = 715;
-				excessMoney = income - 7150;
-				extraOwed = 0.15 * excessMoney;
-				amtOwed = fltAmt + extraOwed;				
-			}
-			else if (income > 29050 && !(income > 70350)) {
-				fltAmt = 4000;
-				excessMoney = income - 29050;
-				extraOwed = 0.25 * excessMoney;
-				amtOwed = fltAmt + extraOwed;				
-			}
-			else {
-				fltAmt = 14325;
-				excessMoney = income - 70350;
-				extraOwed = 0.28 * excessMoney;
-				amtOwed = fltAmt + extraOwed;				
-			}
+			tax = 14325 + 0.28 * (income - 70350);
 		}
 		
-		return amtOwed;
+		return tax;
 	}
 	
 	/**
@@ -96,48 +78,42 @@ public class Lab2 {
 	 * it checks if the year is a leap year
 	 */
 	public static boolean validDate(int day, int month, int year) {
-		boolean monthValid = false, yearValid = false, isLeapYear = false, dayValid = false;;
+		boolean monthValid = false, yearValid = false, isLeapYear = false, dayValid = false;
 		
 		if (month >0 && month <13) {
 			monthValid = true;
 		}
-		
-		if (year>= 1000) {
+		if (year >= 1000) {
 			yearValid = true;
-			if (year%400 == 0 || (year%4 == 0 && year%100 == 1)){
+			if (year %400 ==0 || (year%4 ==0 && year %100 == 1)) {
 				isLeapYear = true;
 			}
 		}
 		
-		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month ==12) {
-			if (day >0 && day < 32) {
-				dayValid = true;
-			}
+		if (( month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10) && (day> 0 && day <= 31)) {
+			dayValid = true;
 		}
-		else if (month ==4 || month == 6 || month == 9 || month == 11) {
-			if (day >0 && day <31) {
-				dayValid = true;
-			}
+		else if ((month == 4 || month == 6 || month == 9 || month == 11) && (day > 0 && day < 31)) {
+			dayValid = true;
 		}
-		else {
+		
+		if (month == 2) {
 			if (isLeapYear == true) {
-				if (day >0 && day <30) {
+				if (day > 0 && day < 30) {
 					dayValid = true;
 				}
 			}
 			else {
-				if (day>0 && day<29) {
+				if (day > 0 && day <29) {
 					dayValid = true;
 				}
 			}
 		}
 		
-		if (monthValid == false || yearValid == false || dayValid == false) {
-			return false;
-		}
-		else {
+		if (monthValid == true && yearValid == true && dayValid == true) {
 			return true;
 		}
 		
+		return false;
 	}
 }

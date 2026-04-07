@@ -11,112 +11,125 @@
 public class Lab3 {
 
 	public static String printStars(int n) {
-		
-		String ans = "";
-		
-		for (int i =0; i<n; i ++) {
-			for (int j =0; j<i; j ++) {
-				ans += "-";
-				
+		String output = "";
+		for (int i = 0; i <n; i ++) {
+			for (int j = 0; j < i; j ++) {
+				output += "-";
 			}
-			for (int k =n; k>i; k --) {
-				ans += "*";
+			for ( int k = n; k >i ; k --) {
+				output += "*";
 			}
 			
 			if (i < n-1) {
-				ans += "\n";
+				output += "\n";
 			}
 		}
-		return ans;
+		
+		return output;
 	}
 	
 	public static String expand (int num, int d) {
 
-		if (d <0 || num  < 0) {
+		int tens = d-1;
+		String output = "";
+		int nums = num;
+		if (num <0 || d<0) {
 			return "Invalid";
 		}
 		
-		int userNum = num;
-		int exp = d-1;
-		int digit = 0;
-		int tenExp = 10;
-		int oneVal = (int)(num%10);
-		String output = "";
-		
-		while (userNum >=9) {
-		
-			for (int cnt = 1; cnt < exp; cnt++ ) {
-				tenExp *= 10;
-			}
-			
-			digit = (int)(userNum/tenExp);
-			
-			output += digit + "*" + tenExp + " + ";
-			
-			
-			userNum -= (digit * tenExp);
-			tenExp = 10;
-			exp --;
+		while (tens > 0) {
+			output += nums / (int)Math.pow(10,tens) + "*" + (int)Math.pow(10,tens) + " + ";
+			nums = (int)(nums % (int) Math.pow(10, tens));
+			tens--;
 		}
 		
-		output += oneVal;
-			
+		output += num % 10;
 		
 		return output;
 		
 	}
 	
 	public static String getSeqStat(int ft, int d, int n) {
+	
+		String nums = "{[<";
+		int sum = 0;
+		int prod = 1;
 		
-		int sum = ft;
-		int prod = ft;
-		
-		//first line
-		
-		 String output = "{[<" + ft + ">: " + sum + ", " + prod + "]; ";
-		
-		for (int lines = 1; lines < n-1; lines ++) {
-			String numSeq = "[<";
-			int bodSum = 0;
-			int bodProd = 1;
-			
-			for (int cnt = 0; cnt <= lines; cnt ++) {
-				int nextNum = ft +(d*cnt);
-				numSeq += nextNum;
+		for (int i = 1; i <= n; i ++) {
+			for (int j = 1; j<= i; j ++) {
+				nums += ft + (d * (n-1));
 				
-				if (cnt <= lines -1) {
-					numSeq += ", ";
+				if (j == n-1) {
+					nums += ",";
 				}
-			
-				bodSum += nextNum;
-				bodProd *= nextNum;
+				sum += ft + (d * (n-1));
+				prod *= ft + (d * (n-1));
+				
+				if (j == i) {
+					nums += ">:" + " " + sum + ", " + prod  + "]";
+				}
 			}
 			
+			sum = 0;
+			prod = 1;
 			
-			output += numSeq + ">: " + bodSum + ", " + bodProd + "]; ";
-		}
-		
-		int lastSum = ft;
-		int lastProd = ft;
-		String lastSeq = ft + ", ";
-		
-		for (int count = 1; count < n; count ++) {
-			
-			int nums = ft + (d*count);
-
-			lastSeq += nums;
-			
-			if (count < n-1) {
-				lastSeq += ", ";
+			if (i < n) {
+				nums += "; [<";
 			}
-			lastSum += nums;
-			lastProd *= nums;
 		}
 		
-		String lastLine = "[<" + lastSeq + ">: " + lastSum + ", " + lastProd + "]}";
+		return nums;
 		
-		output += lastLine;
-		return output;
+		
+//		int sum = ft;
+//		int prod = ft;
+//		
+//		//first line
+//		
+//		 String output = "{[<" + ft + ">: " + sum + ", " + prod + "]; ";
+//		
+//		for (int lines = 1; lines < n-1; lines ++) {
+//			String numSeq = "[<";
+//			int bodSum = 0;
+//			int bodProd = 1;
+//			
+//			for (int cnt = 0; cnt <= lines; cnt ++) {
+//				int nextNum = ft +(d*cnt);
+//				numSeq += nextNum;
+//				
+//				if (cnt <= lines -1) {
+//					numSeq += ", ";
+//				}
+//			
+//				bodSum += nextNum;
+//				bodProd *= nextNum;
+//			}
+//			
+//			
+//			output += numSeq + ">: " + bodSum + ", " + bodProd + "]; ";
+//		}
+//		
+//		int lastSum = ft;
+//		int lastProd = ft;
+//		String lastSeq = ft + ", ";
+//		
+//		for (int count = 1; count < n; count ++) {
+//			
+//			int nums = ft + (d*count);
+//
+//			lastSeq += nums;
+//			
+//			if (count < n-1) {
+//				lastSeq += ", ";
+//			}
+//			lastSum += nums;
+//			lastProd *= nums;
+//		}
+//		
+//		String lastLine = "[<" + lastSeq + ">: " + lastSum + ", " + lastProd + "]}";
+//		
+//		output += lastLine;
+//		return output;
 	}	
 	
 	public static String seqInterleaving(int ft1, int d1, int n1, int ft2, int d2, int n2) {
