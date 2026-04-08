@@ -21,71 +21,66 @@ public class TextFile {
 
 	//add a method that computes word frequencies in the text file.
 	//The method returns a Map object of String to Integer.
+
 	
 	private String name = "";
 	
-	public TextFile(String fileName) {
-		this.name = fileName;
+	public TextFile(String name) {
+		this.name = name;
 	}
 	
-	
-	public List<String> getWords() {
-		
-		
+	public List<String> getWords(){
 		File file = new File(name);
 		List<String> words = new ArrayList<>();
 		
-		try (Scanner input = new Scanner(file)){
+		try(Scanner input = new Scanner(file)){
 			if (input.hasNext()) {
-				String fileWords = input.useDelimiter("\\Z").next();
-
-				String[] allWords = fileWords.split("\\W+");
+				String filewords = input.useDelimiter("\\Z").next();
 				
-				for (String w: allWords) {
+				String[] allwords = filewords.split("\\W+");
+				
+				for (String w: allwords) {
 					words.add(w);
 				}
-
 			}
-	
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		return words;
 	}
 	
-
 	public Map<String, Integer> getWordFrequencies(){
 		List<String> words = getWords();
-		Map<String, Integer> wordCount = new HashMap<>();
+		Map <String, Integer> count = new HashMap<>();
 		
 		
-		for (String w : words) {
-			wordCount.put(w, wordCount.getOrDefault(w,0) +1);
+		for (String w: words) {
+			count.put(w,  count.getOrDefault(w,0) +1);
 		}
 		
-		return wordCount;
+		return count;
 	}
-
-
+	
 	public Map<Character, Integer> getLetterFrequencies(){
-		Map<Character, Integer> letterCount = new HashMap<>();
+		Map<Character, Integer> count = new HashMap<>();
 		File file = new File(name);
 		
-		try (Scanner input = new Scanner(file)){
+		try (Scanner input = new Scanner (file)){
 			if (input.hasNext()) {
 				String words = input.useDelimiter("\\Z").next();
 				
-				for(char L: words.toCharArray()) {
-					if(Character.isLetter(L)) {
-						char upL = Character.toUpperCase(L);
-						letterCount.put(upL, letterCount.getOrDefault(upL,0) +1); 
-				}
+				for (char c: words.toCharArray()) {
+					if (Character.isLetter(c)) {
+						char up = Character.toUpperCase(c);
+						count.put(up, count.getOrDefault(up, 0) + 1);
+					}
 				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-	    }
-		return letterCount;
+		}
+		
+		return count;
 	}
+	
 }	

@@ -11,21 +11,39 @@
 public class Lab3 {
 
 	public static String printStars(int n) {
-		String output = "";
-		for (int i = 0; i <n; i ++) {
-			for (int j = 0; j < i; j ++) {
-				output += "-";
+		if ( n == 1) {
+			return "*";
+		}
+		else if ( n == 2) {
+			return "**\n-*";
+		}
+		else {
+			String output = "";
+			String l1 = "";
+			for ( int lines = n; lines >0; lines --) {
+				l1 += "*";
 			}
-			for ( int k = n; k >i ; k --) {
-				output += "*";
+			String lf = "";
+			for (int last = (n-1); last >0; last --) {
+				lf += "-";
+			}
+			lf += "*";
+			
+			for (int body = 1; body <= (n-2); body ++) {
+				String lines = "";
+				for (int spaces = 1; spaces <= body; spaces ++) {
+					lines += "-";
+				}
+				for (int stars = 1; stars <= (n-body); stars ++) {
+					lines += "*";
+				}
+				
+				output += lines + "\n";
 			}
 			
-			if (i < n-1) {
-				output += "\n";
-			}
+			output = l1 + "\n" + output + lf;
+			return output;
 		}
-		
-		return output;
 	}
 	
 	public static String expand (int num, int d) {
@@ -50,86 +68,57 @@ public class Lab3 {
 	}
 	
 	public static String getSeqStat(int ft, int d, int n) {
-	
-		String nums = "{[<";
-		int sum = 0;
-		int prod = 1;
 		
-		for (int i = 1; i <= n; i ++) {
-			for (int j = 1; j<= i; j ++) {
-				nums += ft + (d * (n-1));
+		
+		int sum = ft;
+		int prod = ft;
+		
+		//first line
+		
+		 String output = "{[<" + ft + ">: " + sum + ", " + prod + "]; ";
+		
+		for (int lines = 1; lines < n-1; lines ++) {
+			String numSeq = "[<";
+			int bodSum = 0;
+			int bodProd = 1;
+			
+			for (int cnt = 0; cnt <= lines; cnt ++) {
+				int nextNum = ft +(d*cnt);
+				numSeq += nextNum;
 				
-				if (j == n-1) {
-					nums += ",";
+				if (cnt <= lines -1) {
+					numSeq += ", ";
 				}
-				sum += ft + (d * (n-1));
-				prod *= ft + (d * (n-1));
-				
-				if (j == i) {
-					nums += ">:" + " " + sum + ", " + prod  + "]";
-				}
+			
+				bodSum += nextNum;
+				bodProd *= nextNum;
 			}
 			
-			sum = 0;
-			prod = 1;
 			
-			if (i < n) {
-				nums += "; [<";
-			}
+			output += numSeq + ">: " + bodSum + ", " + bodProd + "]; ";
 		}
 		
-		return nums;
+		int lastSum = ft;
+		int lastProd = ft;
+		String lastSeq = ft + ", ";
 		
+		for (int count = 1; count < n; count ++) {
+			
+			int nums = ft + (d*count);
+
+			lastSeq += nums;
+			
+			if (count < n-1) {
+				lastSeq += ", ";
+			}
+			lastSum += nums;
+			lastProd *= nums;
+		}
 		
-//		int sum = ft;
-//		int prod = ft;
-//		
-//		//first line
-//		
-//		 String output = "{[<" + ft + ">: " + sum + ", " + prod + "]; ";
-//		
-//		for (int lines = 1; lines < n-1; lines ++) {
-//			String numSeq = "[<";
-//			int bodSum = 0;
-//			int bodProd = 1;
-//			
-//			for (int cnt = 0; cnt <= lines; cnt ++) {
-//				int nextNum = ft +(d*cnt);
-//				numSeq += nextNum;
-//				
-//				if (cnt <= lines -1) {
-//					numSeq += ", ";
-//				}
-//			
-//				bodSum += nextNum;
-//				bodProd *= nextNum;
-//			}
-//			
-//			
-//			output += numSeq + ">: " + bodSum + ", " + bodProd + "]; ";
-//		}
-//		
-//		int lastSum = ft;
-//		int lastProd = ft;
-//		String lastSeq = ft + ", ";
-//		
-//		for (int count = 1; count < n; count ++) {
-//			
-//			int nums = ft + (d*count);
-//
-//			lastSeq += nums;
-//			
-//			if (count < n-1) {
-//				lastSeq += ", ";
-//			}
-//			lastSum += nums;
-//			lastProd *= nums;
-//		}
-//		
-//		String lastLine = "[<" + lastSeq + ">: " + lastSum + ", " + lastProd + "]}";
-//		
-//		output += lastLine;
-//		return output;
+		String lastLine = "[<" + lastSeq + ">: " + lastSum + ", " + lastProd + "]}";
+		
+		output += lastLine;
+		return output;
 	}	
 	
 	public static String seqInterleaving(int ft1, int d1, int n1, int ft2, int d2, int n2) {

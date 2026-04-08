@@ -1,112 +1,95 @@
 public class Lab4 {
 	public static int longestSeq (int[] array) {
+		int cnt = 0;
+		int max = 0;
 		
-		if (array.length == 0) {
-			return 0;
-		}
-		if (array.equals(null)) {
-			return 0;
-		}
-		
-		int counter = 1;
-		int maxVal = counter;
-		
-		
-		for (int i = 1; i <array.length; i ++) {
-			if (array[i] == array[i-1] + 1) {
-				counter ++;
+		for (int i = 1; i < array.length; i ++) {
+			int num = array[i-1];
+			if (array[i] == num +1) {
+				cnt += 1;
 			}
 			else {
-				counter = 1;
+				if (cnt > max) {
+					max = cnt;
+				}
+				cnt = 1;
 			}
-			
-			if (counter > maxVal) {
-				maxVal = counter;
-			}
+			num = array[i];
 		}
-		
-		return maxVal;
+		return max;
 	}
 
 	public static String countArray (int[] array) {
-		
-		int[] evenNums = new int[101];
+		int num =0, cnt = 0;
 		String output = "";
+		boolean[] nums = new boolean[100];
 		
-		for (int i = 0; i< array.length-1; i ++) {
-			if (array[i]<100 && array[i]>=2 && array[i] %2 ==0) {
-				evenNums[array[i]] ++;
+		for (int i = 0; i < array.length; i++) {
+			if (array[i]>= 2 && array[i] < 100 && array[i]%2 == 0 && !nums[array[i]]){
+				num = array[i];
+				 
+				for (int j = 0; j < array.length; j ++) {
+					if (array[j] == num) {
+						cnt ++;
+					}
+				}
+				
+				output += num + ": " + cnt;
+				cnt = 0;
+				nums[array[i]] = true;
+				
+				if (i < array.length-1) {
+					output += "\n";
+				}
 			}
 		}
 		
-		for (int j = 0; j<array.length-1; j++) {
-			if (evenNums[j] != 0) {
-				output += j + ": " + evenNums[j] + "\n";
-			}
-		}
-		
-		return output;
+		return output.trim();
 	}
 	
 	public static boolean validString (String str1, String str2) {
-		
-		int start = 0; 
-		int wrdCnt = 1;
-		for (int i = 0; i<str1.length(); i ++) {
-			if (str2.charAt(0) == str1.charAt(i)) {
-				break;
-			}
-			else {
-				start = i;
-				
-			}
-			
-		}
-		
-		for (int j = start; j <str1.length(); j ++) {
-			if (str1.charAt(j) == str2.charAt(wrdCnt)){
-				wrdCnt ++;
-			}
-			
-			if (wrdCnt == str2.length()) {
-				return true;
+		String mixed = str1;
+		String unscram = "";
+		for (int i = 0; i < str2.length(); i ++) {
+			for (int j = 0; j < mixed.length(); j ++) {
+				if (mixed.charAt(j) == str2.charAt(i)) {
+					unscram += str2.charAt(i);
+					mixed = mixed.substring(j+1);
+					break;
+				}
 			}
 		}
 		
-		
-		
-			return false;
+		if (unscram.equals(str2)) {
+			return true;
+		}
+		return false;
 	}
 	
 	public static String arrayResult(int[][] array) {	
-		
-		int sum = 0;
-		int prod;
-		
-		if (array[0].length >1) {
+		int sum = 0, prod;
+		if (array[0].length > 1) {
 			prod = 1;
 		}
 		else {
 			prod = 0;
 		}
 		
-		for(int y = 0; y<array.length; y++) {
-			for(int x =0; x<array[0].length; x ++) {
-				if ((x+y)%2 ==1) {
-					prod *= array[x][y];
+		for (int i = 0; i < array.length; i ++) {
+			for (int j = 0; j < array[0].length; j ++) {
+				if ((i + j)%2 ==0) {
+					sum += array[i][j];
 				}
 				else {
-					sum += array[x][y];
+					prod *= array[i][j];
 				}
 			}
 		}
 		
-		String output = "Sum:" + sum + ", Product:" + prod;
-		return output;
+		return ("Sum:" + sum + ", Product:" + prod);
 	}
 	
 	public static boolean magicSquare(int[][] array) {
-		
 		int xSum =0;
 		int newXSum =0;
 		
@@ -159,7 +142,7 @@ public class Lab4 {
 			return false;
 		}
 		
-		return true;	
+		return true;
 	}
 	
 }
