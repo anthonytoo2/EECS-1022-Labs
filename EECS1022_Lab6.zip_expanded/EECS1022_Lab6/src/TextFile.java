@@ -34,49 +34,52 @@ public class TextFile {
 		List<String> words = new ArrayList<>();
 		
 		try(Scanner input = new Scanner(file)){
-			if (input.hasNext()) {
+			if(input.hasNext()) {
 				String filewords = input.useDelimiter("\\Z").next();
+				String[] all = filewords.split("\\W+");
 				
-				String[] allwords = filewords.split("\\W+");
-				
-				for (String w: allwords) {
+				for (String w: all) {
 					words.add(w);
 				}
 			}
-		} catch (IOException e) {
+		}
+		catch(IOException e){
 			e.printStackTrace();
 		}
+		
 		return words;
 	}
-	
+		
 	public Map<String, Integer> getWordFrequencies(){
+		
 		List<String> words = getWords();
-		Map <String, Integer> count = new HashMap<>();
+		Map<String, Integer> count = new HashMap<>();
 		
-		
-		for (String w: words) {
-			count.put(w,  count.getOrDefault(w,0) +1);
+		for(String w: words) {
+			count.put(w,count.getOrDefault(w, 0) + 1);
 		}
 		
 		return count;
+		
 	}
 	
 	public Map<Character, Integer> getLetterFrequencies(){
 		Map<Character, Integer> count = new HashMap<>();
 		File file = new File(name);
 		
-		try (Scanner input = new Scanner (file)){
-			if (input.hasNext()) {
+		try(Scanner input = new Scanner (file)){
+			if(input.hasNext()) {
 				String words = input.useDelimiter("\\Z").next();
 				
 				for (char c: words.toCharArray()) {
 					if (Character.isLetter(c)) {
 						char up = Character.toUpperCase(c);
-						count.put(up, count.getOrDefault(up, 0) + 1);
+						count.put(c, count.getOrDefault(c, 0) + 1);
 					}
 				}
 			}
-		} catch (IOException e) {
+		}
+		catch(IOException e) {
 			e.printStackTrace();
 		}
 		

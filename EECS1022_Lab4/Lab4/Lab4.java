@@ -1,44 +1,76 @@
 public class Lab4 {
 	public static int longestSeq (int[] array) {
+		
 		int cnt = 0;
 		int max = 0;
 		
 		for (int i = 1; i < array.length; i ++) {
 			int num = array[i-1];
-			if (array[i] == num +1) {
-				cnt += 1;
+			
+			if (array[i] == num + 1) {
+				cnt ++;
 			}
 			else {
 				if (cnt > max) {
 					max = cnt;
 				}
+				
 				cnt = 1;
 			}
-			num = array[i];
 		}
+		
 		return max;
+		
 	}
 
 	public static String countArray (int[] array) {
-		int num =0, cnt = 0;
-		String output = "";
-		boolean[] nums = new boolean[100];
+//		int num =0, cnt = 0;
+//		String output = "";
+//		boolean[] nums = new boolean[100];
+//		
+//		for (int i = 0; i < array.length; i++) {
+//			if (array[i]>= 2 && array[i] < 100 && array[i]%2 == 0 && !nums[array[i]]){
+//				num = array[i];
+//				 
+//				for (int j = 0; j < array.length; j ++) {
+//					if (array[j] == num) {
+//						cnt ++;
+//					}
+//				}
+//				
+//				output += num + ": " + cnt;
+//				cnt = 0;
+//				nums[array[i]] = true;
+//				
+//				if (i < array.length-1) {
+//					output += "\n";
+//				}
+//			}
+//		}
+//		
+//		return output.trim();
 		
-		for (int i = 0; i < array.length; i++) {
-			if (array[i]>= 2 && array[i] < 100 && array[i]%2 == 0 && !nums[array[i]]){
-				num = array[i];
-				 
-				for (int j = 0; j < array.length; j ++) {
-					if (array[j] == num) {
+		
+		
+		String output = "";
+		int cnt = 0;
+		boolean[] nums = new boolean[100];
+		int len = 0;
+		
+		for(int i : array) {
+			if (i % 2 ==0 && i<100 && i >1 && !nums[i]) {
+				for (int j : array) {
+					if (j == i) {
 						cnt ++;
 					}
 				}
 				
-				output += num + ": " + cnt;
+				output += i + ": " + cnt;
 				cnt = 0;
-				nums[array[i]] = true;
+				nums[i] = true;
+				len ++;
 				
-				if (i < array.length-1) {
+				if (len < array.length-1) {
 					output += "\n";
 				}
 			}

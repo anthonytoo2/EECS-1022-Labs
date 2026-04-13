@@ -8,15 +8,14 @@ public class Lab1 {
 	 * sequence
 	 */
 	public static int collatz(int n) {
-		if (n < 0) {
+		if (n<0) {
 			return -1;
 		}
-		
-		if (n%2 ==0) {
+		if (n%2 == 0) {
 			return (n/2);
 		}
 		else {
-			return (3*n +1);
+			return (3*n + 1);
 		}
 	}
 	
@@ -28,28 +27,26 @@ public class Lab1 {
 		if (gpa < 1.8 && sat < 900) {
 			return "ScoresTooLow";
 		}
-		else if (gpa <1.8 || sat < 900) {
+		else if (gpa<1.8|| sat < 900) {
 			return "Reject";
 		}
-		else {
-			return "Accept";
-		}
+		else return "Accept";
 	}
 		
 	/**
 	 * Takes coordinates of a points (x,y) and determines to which quadrant it belongs
 	 */
 	public static int quadrant (double x, double y) {
-		if (x == 0 || y ==0) {
+		if (x == 0 || y == 0) {
 			return 0;
 		}
-		else if (x>0 && y >0) {
+		else if (x > 0 && y > 0) {
 			return 1;
 		}
-		else if (x < 0 && y>0) {
+		else if (x < 0 && y > 0) {
 			return 2;
 		}
-		else if (x<0 && y<0) {	
+		else if (x < 0 && y < 0) {
 			return 3;
 		}
 		else {
@@ -62,16 +59,13 @@ public class Lab1 {
 	 * time between them for lunch. This time has to be at least 45 minutes.
 	 */
 	public static boolean enoughLunchTime (int hour1, int min1, int hour2, int min2) {
-		int h1 = hour1*60;
-		int h2 = hour2*60;
-		
-		int t1 = h1 + min1;
-		int t2 = h2 + min2;
+		int t1 = 60* hour1 + min1;
+		int t2 = 60* hour2 + min2;
 		
 		if (t2-t1 >= 45) {
 			return true;
 		}
-			return false;
+		return false;
 	}
 	
 	/**
@@ -79,28 +73,22 @@ public class Lab1 {
 	 * calculates the minimum payment owed 
 	 */
 	public static double computePayment (double oldBalance, double charges) {
-		double interest;
-		if (oldBalance == 0) {
-			interest = 0;
-		}
-		else {
-			interest = 0.02* (oldBalance + charges);
+		double interest = 0;
+		
+		if (oldBalance > 0) {
+			interest = 0.02 * (oldBalance + charges);
 		}
 		
-		double newBal = oldBalance + charges + interest;
+		double bal = oldBalance + charges + interest;
 		
-		if (newBal < 50) {
-			return newBal;
+		if (bal < 50) {
+			return bal;
 		}
-		else if (newBal >= 50 && newBal <= 300){
+		else if (bal >= 50 && bal < 300) {
 			return 50;
 		}
 		else {
-			return 0.2*newBal;
+			return (0.2*bal);
 		}
-		
-		
-		
-
 	}
 }
